@@ -1,0 +1,46 @@
+Films:
+LOAD
+	*,
+	Rating as RatingSquare,
+	Rating as RatingStar,  
+	if(Rating = 5, RGB(103, 167, 202), 
+	if(Rating = 4, RGB(140, 191, 218),
+	if(Rating = 3, RGB(175, 212, 230),
+	if(Rating = 2, RGB(186, 218, 233),
+	if(Rating = 1, RGB(232, 241, 246),
+	RGB(205, 205, 205)))))) as RatingColor
+	;
+LOAD
+	 FilmID, 
+     Title, 
+   
+     Ceil(Rating/2) as Rating,    
+	 "Length",
+     IF("Length" <60, '< 60',
+     IF("Length" > 60 AND "Length"<= 90, '1 to 1.5 hrs',
+     IF("Length" > 90 AND "Length"<= 120, '1.5 to 2 hrs',
+     IF("Length" > 120 AND "Length"<= 150, '2 to 2.5 hrs',
+     IF("Length" > 150, '> 2.5 hrs'))))) as LengthRange,
+   
+     
+FROM [lib://Movies Data/Films Database.xls]
+(biff, embedded labels, table is Films$);
+
+
+Actors:
+LOAD 
+     FilmID, 
+     Actor
+     
+FROM [lib://Movies Data/Films Database.xls]
+(biff, embedded labels, table is Actors$);
+
+Directors:
+LOAD 
+     FilmID, 
+     Director
+     
+FROM [lib://Movies Data/Films Database.xls]
+(biff, embedded labels, table is Directors$);
+
+
